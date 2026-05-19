@@ -1,0 +1,12 @@
+#ifndef STATUS_H
+#define STATUS_H
+
+enum libvec_status {
+    LVSTAT_SUCCESS,
+    LVSTAT_INVALID_ARGUMENT,
+    LVSTAT_OUT_OF_MEMORY,
+    LVSTAT_EMPTY,
+    LVSTAT_INDEX_OUT_OF_BOUNDS,
+};
+
+#endif

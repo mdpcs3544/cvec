@@ -3,13 +3,28 @@
     "arguments": [
       "/usr/bin/clang",
       "-c",
+      "-Isource/include",
+      "-std=c23",
+      "-o",
+      "target/list.o",
+      "source/list.c"
+    ],
+    "directory": "/home/mdp/programming/cvec",
+    "file": "/home/mdp/programming/cvec/source/list.c",
+    "output": "/home/mdp/programming/cvec/target/list.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang",
+      "-c",
+      "-Isource/include",
       "-std=c23",
       "-o",
       "target/vec.o",
-      "vec.c"
+      "source/vec.c"
     ],
-    "directory": "/home/mdp/cvec",
-    "file": "/home/mdp/cvec/vec.c",
-    "output": "/home/mdp/cvec/target/vec.o"
+    "directory": "/home/mdp/programming/cvec",
+    "file": "/home/mdp/programming/cvec/source/vec.c",
+    "output": "/home/mdp/programming/cvec/target/vec.o"
   }
 ]

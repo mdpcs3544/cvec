@@ -17,19 +17,19 @@ struct vector {
     size_t cap;
 };
 
-enum vector_status vector_init(struct vector *const self, const size_t esize, const size_t cap, const struct allocator *const allocator)
+enum libvec_status vector_init(struct vector *const self, const size_t esize, const size_t cap, const struct allocator *const allocator)
 {
     uint8_t *buf = nullptr;
 
     if (!self || !allocator || !allocator->allocate || !allocator->deallocate) {
-        return VECTOR_INVALID_ARGUMENT;
+        return LVSTAT_INVALID_ARGUMENT;
     }
     if (esize == 0 || cap == 0) {
-        return VECTOR_INVALID_ARGUMENT;
+        return LVSTAT_INVALID_ARGUMENT;
     }
     buf = allocator->allocate(esize * cap);
     if (!buf) {
-        return VECTOR_OUT_OF_MEMORY;
+        return LVSTAT_OUT_OF_MEMORY;
     }
 
     *self =  (struct vector){
@@ -40,33 +40,33 @@ enum vector_status vector_init(struct vector *const self, const size_t esize, co
         .cap = cap
     };
 
-    return VECTOR_SUCCESS;
+    return LVSTAT_SUCCESS;
 }
 
-enum vector_status vector_deinit(struct vector *const self)
+enum libvec_status vector_deinit(struct vector *const self)
 {
     if (!self) {
-        return VECTOR_INVALID_ARGUMENT;
+        return LVSTAT_INVALID_ARGUMENT;
     }
     self->allocator->deallocate(self->ptr);
     self->ptr = nullptr;
     self->len = 0ull;
     self->cap = 0ull;
 
-    return VECTOR_SUCCESS;
+    return LVSTAT_SUCCESS;
 }
 
-enum vector_status vector_push(struct vector *const self, const void *const elem)
+enum libvec_status vector_push(struct vector *const self, const void *const elem)
 {
     uint8_t *new_buf = nullptr;
 
     if (!self || !elem) {
-        return VECTOR_INVALID_ARGUMENT;
+        return LVSTAT_INVALID_ARGUMENT;
     }
     if (self->len == self->cap) {
         new_buf = self->allocator->allocate(self->esize * self->cap * 2);
         if (!new_buf) {
-            return VECTOR_OUT_OF_MEMORY;
+            return LVSTAT_OUT_OF_MEMORY;
         }
         memcpy(new_buf, self->ptr, self->len * self->esize);
         self->allocator->deallocate(self->ptr);
@@ -78,48 +78,48 @@ enum vector_status vector_push(struct vector *const self, const void *const elem
     memcpy(&self->ptr[self->len * self->esize], elem, self->esize);
     self->len++;
 
-    return VECTOR_SUCCESS;
+    return LVSTAT_SUCCESS;
 }
 
-enum vector_status vector_pop(struct vector *const self, void *const elem)
+enum libvec_status vector_pop(struct vector *const self, void *const elem)
 {
     if (!self || !elem) {
-        return VECTOR_INVALID_ARGUMENT;
+        return LVSTAT_INVALID_ARGUMENT;
     }
     if (self->len == 0) {
-        return VECTOR_EMPTY;
+        return LVSTAT_EMPTY;
     }
 
     self->len--;
     memcpy(elem, &self->ptr[self->len * self->esize], self->esize);
 
-    return VECTOR_SUCCESS;
+    return LVSTAT_SUCCESS;
 }
 
-enum vector_status vector_get(const struct vector *const self, const size_t index, void *const elem)
+enum libvec_status vector_get(const struct vector *const self, const size_t index, void *const elem)
 {
     if (!self || !elem) {
-        return VECTOR_INVALID_ARGUMENT;
+        return LVSTAT_INVALID_ARGUMENT;
     }
     if (index >= self->len) {
-        return VECTOR_INDEX_OUT_OF_BOUNDS;
+        return LVSTAT_INDEX_OUT_OF_BOUNDS;
     }
 
     memcpy(elem, &self->ptr[index * self->esize], self->esize);
 
-    return VECTOR_SUCCESS;
+    return LVSTAT_SUCCESS;
 }
 
-enum vector_status vector_set(struct vector *const self, const size_t index, const void *const elem)
+enum libvec_status vector_set(struct vector *const self, const size_t index, const void *const elem)
 {
     if (!self || !elem) {
-        return VECTOR_INVALID_ARGUMENT;
+        return LVSTAT_INVALID_ARGUMENT;
     }
     if (index >= self->len) {
-        return VECTOR_INDEX_OUT_OF_BOUNDS;
+        return LVSTAT_INDEX_OUT_OF_BOUNDS;
     }
 
     memcpy(&self->ptr[index * self->esize], elem, self->esize);
 
-    return VECTOR_SUCCESS;
+    return LVSTAT_SUCCESS;
 }
