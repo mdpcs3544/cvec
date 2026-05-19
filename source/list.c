@@ -18,7 +18,7 @@ enum libvec_status list_init(struct list *const self, const size_t esize, const 
         return LVSTAT_INVALID_ARGUMENT;
     }
 
-    *self = (struct list) {
+    *self = (struct list){
         .esize = esize,
         .len = 0,
         .allocator = allocator,
