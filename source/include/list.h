@@ -2,10 +2,11 @@
 #define LIST_H
 
 #include "allocator.h"
+#include "status.h"
 
 struct list;
 
-enum libvec_status list_init(struct list *const self, const size_t esize, const size_t cap, const struct allocator *const allocator);
+enum libvec_status list_init(struct list *const self, const size_t esize, const struct allocator *const allocator);
 enum libvec_status list_deinit(struct list *const self);
 enum libvec_status list_push(struct list *const self, const void *const elem);
 enum libvec_status list_pop(struct list *const self, void *const elem);

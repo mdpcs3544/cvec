@@ -32,7 +32,7 @@ enum libvec_status vector_init(struct vector *const self, const size_t esize, co
         return LVSTAT_OUT_OF_MEMORY;
     }
 
-    *self =  (struct vector){
+    *self =  (struct vector) {
         .allocator = allocator,
         .esize = esize,
         .ptr = buf,
