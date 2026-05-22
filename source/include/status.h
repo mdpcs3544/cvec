@@ -10,4 +10,6 @@ enum libvec_status {
     LVSTAT_ALLOCATION_FAILURE,
 };
 
+const char *const libvec_status_to_string(const enum libvec_status);
+
 #endif
