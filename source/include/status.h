@@ -7,6 +7,7 @@ enum libvec_status {
     LVSTAT_OUT_OF_MEMORY,
     LVSTAT_EMPTY,
     LVSTAT_INDEX_OUT_OF_BOUNDS,
+    LVSTAT_ALLOCATION_FAILURE,
 };
 
 #endif
