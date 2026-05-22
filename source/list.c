@@ -59,7 +59,7 @@ enum libvec_status list_push(struct list *const self, const void *const elem)
             return LVSTAT_INVALID_ARGUMENT;
         }
     
-        struct list_node *new_node = malloc(sizeof(struct list_node));
+        struct list_node *new_node = malloc(sizeof(*new_node));
         if (!new_node) {
             return LVSTAT_ALLOCATION_FAILURE;
         }
@@ -161,7 +161,7 @@ enum libvec_status list_insert(struct list *const self, const size_t index, cons
         return list_push(self, elem);
     }
 
-    struct list_node *new_node = malloc(sizeof(struct list_node));
+    struct list_node *new_node = malloc(sizeof(*new_node));
     if (!new_node) {
         return LVSTAT_ALLOCATION_FAILURE;
     }
